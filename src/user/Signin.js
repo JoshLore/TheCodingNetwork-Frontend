@@ -72,6 +72,7 @@ const Signin = () => {
     // JSX for Sign In page
     return (
         <div className="container">
+
             {/* Title */}
             <h2 className="mt-5 mb-5">Sign In</h2>
 

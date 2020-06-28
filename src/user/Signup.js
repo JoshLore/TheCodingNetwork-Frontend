@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { signup } from '../auth/auth';
+import { Link } from 'react-router-dom';
 
 // Page for sign up
 const Signup = () => {
@@ -87,7 +88,7 @@ const Signup = () => {
 
             {/* Displays if signup was sucessful */}
             <div className="alert alert-info" style={{ display: open ? "" : "none" }}>
-                Signup success! Please Sign In.
+                Signup success! Please <Link to="/signin">Sign In!</Link>.
             </div>
 
             {signupForm()}

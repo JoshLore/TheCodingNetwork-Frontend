@@ -15,17 +15,25 @@ const isActive = (history, path) => {
 const Menu = ({ history }) => (
     <ul className="nav nav-tabs bg-dark">
 
+        {/* Home */}
         <li className="nav-item">
             <Link className="nav-link" to="/" style={isActive(history, "/")}>Home</Link>
+        </li>
+
+        {/* Users */}
+        <li className="nav-item">
+            <Link className="nav-link" to="/users" style={isActive(history, "/users")}>Users</Link>
         </li>
 
         {/* If user logged in, HIDE these links */}
         {!isAuthenticated() && (
             <>
-
+                {/* Sign In */}
                 <li className="nav-item">
                     <Link className="nav-link" to="/signin" style={isActive(history, "/signin")}>Sign In</Link>
                 </li>
+
+                {/* Sign Up */}
                 <li className="nav-item">
                     <Link className="nav-link" to="/signup" style={isActive(history, "/signup")}>Sign Up</Link>
                 </li>
@@ -36,11 +44,20 @@ const Menu = ({ history }) => (
         {/* Might want to clean up that onClick */}
         {isAuthenticated() && (
             <>
+                {/* Sign out */}
                 <li className="nav-item">
                     <a className="nav-link" href="/" style={{ cursor: "pointer", color: "#fff" }} onClick={() => signout(() => history.push('/'))}>Sign Out</a>
                 </li>
+
+                {/* User Profile */}
                 <li className="nav-item">
-                    <a className="nav-link">{isAuthenticated().user.name}</a>
+                    <Link
+                        className="nav-link"
+                        style={isActive(history, `/user/${isAuthenticated().user._id}`)}
+                        to={`/user/${isAuthenticated().user._id}`}
+                    >
+                        {`${isAuthenticated().user.name}'s Profile`}
+                    </Link>
                 </li>
             </>
         )}
@@ -49,4 +66,3 @@ const Menu = ({ history }) => (
 );
 
 export default withRouter(Menu);
-
