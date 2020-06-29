@@ -7,20 +7,39 @@ class Posts extends Component {
     constructor() {
         super();
         this.state = {
-            posts: []
+            posts: [],
+            page: 1,
+            noMmorePosts: false
         };
     }
 
     // Call API for posts
     componentDidMount() {
-        list().then(data => {
+        this.loadPosts(this.state.page);
+    }
+
+    // Load posts (pagination)
+    loadPosts = page => {
+        list(page).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
                 this.setState({ posts: data });
             }
         });
-    }
+    };
+
+    // Go to next page
+    loadMore = number => {
+        this.setState({ page: this.state.page + number });
+        this.loadPosts(this.state.page + number);
+    };
+
+    // Go to previous page
+    loadLess = number => {
+        this.setState({ page: this.state.page - number });
+        this.loadPosts(this.state.page - number);
+    };
 
     // Render cards for each post
     renderPosts = posts => {
@@ -28,6 +47,7 @@ class Posts extends Component {
             <div className="row">
                 {/* Map through posts */}
                 {posts.map((post, i) => {
+                    console.log(post);
 
                     const posterId = post.postedBy ? `/user/${post.postedBy._id}` : "";
                     const posterName = post.postedBy ? post.postedBy.name : " Unknown";
@@ -45,6 +65,7 @@ class Posts extends Component {
                             />
                             <h5 className="card-title">{post.title}</h5>
                             <p className="card-text">{post.body.substring(0, 100)}</p>
+
                             {/* Display author and date posted */}
                             <br />
                             <p className="font-italic">
@@ -69,12 +90,34 @@ class Posts extends Component {
 
     // Render given posts
     render() {
-        const { posts } = this.state;
+        const { posts, page } = this.state;
         return (
             <div className="container">
                 <h2 className="mt-5 mb-5">{!posts.length ? 'Loading posts...' : 'Recent Posts'}</h2>
 
                 {this.renderPosts(posts)}
+
+                {page > 1 ? (
+                    <button
+                        className="btn btn-raised btn-warning mr-5 mt-5 mb-5"
+                        onClick={() => this.loadLess(1)}
+                    >
+                        Previous ({this.state.page - 1})
+                    </button>
+                ) : (
+                        ""
+                    )}
+
+                {posts.length ? (
+                    <button
+                        className="btn btn-raised btn-success mt-5 mb-5"
+                        onClick={() => this.loadMore(1)}
+                    >
+                        Next ({page + 1})
+                    </button>
+                ) : (
+                        ""
+                    )}
             </div>
         );
     }

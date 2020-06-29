@@ -15,19 +15,8 @@ export const create = (userId, token, post) => {
 };
 
 // GET All Posts
-export const list = () => {
-    return fetch(`${process.env.REACT_APP_API_URL}/posts`, {
-        method: "GET"
-    })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => console.log(err));
-};
-
-// with pagination
-// export const list = page => {
-//     return fetch(`${process.env.REACT_APP_API_URL}/posts/?page=${page}`, {
+// export const list = () => {
+//     return fetch(`${process.env.REACT_APP_API_URL}/posts`, {
 //         method: "GET"
 //     })
 //         .then(response => {
@@ -35,6 +24,18 @@ export const list = () => {
 //         })
 //         .catch(err => console.log(err));
 // };
+
+// With pagination!
+// GET All Posts
+export const list = page => {
+    return fetch(`${process.env.REACT_APP_API_URL}/posts/?page=${page}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
 
 // GET Single Post
 export const singlePost = postId => {
