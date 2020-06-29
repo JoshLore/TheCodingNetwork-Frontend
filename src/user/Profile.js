@@ -6,6 +6,7 @@ import DefaultProfile from "../images/userDefault.png";
 import DeleteUser from './DeleteUser'
 import FollowProfileButton from './FollowProfileButton';
 import ProfileTabs from './ProfileTabs';
+import { listByUser } from '../post/apiPost';
 
 // I couldn't get a functional component 
 // with useEffect to stop infinitely looping, so
@@ -88,13 +89,27 @@ class Profile extends Component {
                 let following = this.checkFollow(data);
                 // Set User State to user's data and if logged in user is following
                 this.setState({ user: data, following });
+                this.loadPosts(data._id);
             }
         });
     };
 
+    // Load Posts by User
+    loadPosts = userId => {
+        const token = isAuthenticated().token;
+        listByUser(userId, token).then(data => {
+
+            if (data.error) {
+                console.log(data.error);
+            } else {
+                this.setState({ posts: data });
+            }
+        })
+    }
+
     render() {
         // If user is not logged in, redirect
-        const { redirectToSignin, user } = this.state;
+        const { redirectToSignin, user, posts } = this.state;
         if (redirectToSignin) return <Redirect to="/signin" />;
 
         const photoUrl = user._id ?
@@ -107,11 +122,11 @@ class Profile extends Component {
 
                 {/* Profile Information */}
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-4">
 
                         {/* Tries to find user profile image, otherwise uses default */}
                         <img
-                            style={{ height: "200px", width: "auto" }}
+                            style={{ maxWidth: "350px", height: "350px", objectFit: "cover" }}
                             className="img-thumbnail"
                             src={photoUrl}
                             onError={i => (i.target.src = `${DefaultProfile}`)}
@@ -120,7 +135,7 @@ class Profile extends Component {
                     </div>
 
                     {/* Display profile's name and email */}
-                    <div className="col-md-6">
+                    <div className="col-md-8">
                         <div className="lead mt-2">
                             <p>Hello, I'm {user.name}!</p>
                             <p>Email: {user.email}</p>
@@ -134,6 +149,9 @@ class Profile extends Component {
 
                                 // Show edit and delete buttons in OWN user's profile
                                 <div className="d-inline-block">
+                                    <Link className="btn btn-raised btn-info mr-5" to={`/post/create`}>
+                                        Create Post
+                                    </Link>
                                     <Link className="btn btn-raised btn-success mr-5" to={`/user/edit/${user._id}`}>
                                         Edit Profile
                                     </Link>
@@ -157,7 +175,7 @@ class Profile extends Component {
                         <hr />
                         <p className="lead">{user.about}</p>
                         <hr />
-                        <ProfileTabs followers={user.followers} following={user.following} />
+                        <ProfileTabs followers={user.followers} following={user.following} posts={posts} />
                     </div>
                 </div>
             </div>

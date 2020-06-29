@@ -56,6 +56,17 @@ const Menu = ({ history }) => (
                     </Link>
                 </li>
 
+                {/* Find People to Follow */}
+                <li className="nav-item">
+                    <Link
+                        className="nav-link"
+                        style={isActive(history, `/post/create`)}
+                        to={`/post/create`}
+                    >
+                        Create Post
+                    </Link>
+                </li>
+
                 {/* User Profile */}
                 <li className="nav-item">
                     <Link

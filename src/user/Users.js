@@ -31,7 +31,7 @@ class Users extends Component {
 
                     {/* Tries to find user profile image, otherwise uses default */}
                     <img
-                        style={{ width: "auto", maxWidth: "100%" }}
+                        style={{ width: "100%", objectFit: "cover", minHeight: "350px" }}
                         className="img-thumbnail"
                         src={`${process.env.REACT_APP_API_URL}/user/photo/${user._id}`}
                         onError={i => (i.target.src = `${DefaultProfile}`)}
@@ -39,7 +39,7 @@ class Users extends Component {
                     />
 
                     {/* Display name and email */}
-                    <div className="card-body">
+                    <div className="card-body" style={{ position: "relative", bottom: "0" }}>
                         <h5 className="card-title">{user.name}</h5>
                         <p className="card-text">{user.email}</p>
 
