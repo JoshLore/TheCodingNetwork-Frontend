@@ -8,11 +8,6 @@ import FollowProfileButton from './FollowProfileButton';
 import ProfileTabs from './ProfileTabs';
 import { listByUser } from '../post/apiPost';
 
-// I couldn't get a functional component 
-// with useEffect to stop infinitely looping, so
-// I just reverted back to a class component to 
-// make it easier. One day I'll conquer Hooks.
-
 class Profile extends Component {
     constructor() {
         super();
@@ -38,9 +33,6 @@ class Profile extends Component {
         // Returns true if following, false if not
         return match;
     }
-
-    // This is where useEffect kept infinitely looping,
-    // but componentDidMount() doesn't, for some reason.
 
     // Get current user's object from an API call
     componentDidMount() {
@@ -143,21 +135,19 @@ class Profile extends Component {
                         </div>
 
                         {/* Check whether user is in his own profile or another's */}
-                        {isAuthenticated().user &&
-                            isAuthenticated().user._id === user._id ?
-                            (
+                        {isAuthenticated().user && isAuthenticated().user._id === user._id ? (
 
-                                // Show edit and delete buttons in OWN user's profile
-                                <div className="d-inline-block">
-                                    <Link className="btn btn-raised btn-info mr-5" to={`/post/create`}>
-                                        Create Post
+                            // Show edit and delete buttons in OWN user's profile
+                            <div className="d-inline-block">
+                                <Link className="btn btn-raised btn-info mr-5" to={`/post/create`}>
+                                    Create Post
                                     </Link>
-                                    <Link className="btn btn-raised btn-success mr-5" to={`/user/edit/${user._id}`}>
-                                        Edit Profile
+                                <Link className="btn btn-raised btn-success mr-5" to={`/user/edit/${user._id}`}>
+                                    Edit Profile
                                     </Link>
-                                    <DeleteUser userId={user._id} />
-                                </div>
-                            ) : (
+                                <DeleteUser userId={user._id} />
+                            </div>
+                        ) : (
 
                                 // Show follow and unfollow buttons in OTHER user's profile
                                 <FollowProfileButton

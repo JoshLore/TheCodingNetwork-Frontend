@@ -1,13 +1,16 @@
 import React, { Component } from "react";
-import { singlePost } from "./apiPost";
+import { singlePost, remove } from "./apiPost";
 import DefaultPost from "../images/mountains.jpg";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { isAuthenticated } from '../auth/auth';
 
 class SinglePost extends Component {
     state = {
-        post: ""
+        post: "",
+        redirectToHome: false
     };
 
+    // Get Single Post Data
     componentDidMount = () => {
         const postId = this.props.match.params.postId;
         singlePost(postId).then(data => {
@@ -17,6 +20,28 @@ class SinglePost extends Component {
                 this.setState({ post: data });
             }
         });
+    };
+
+    // Send delete request
+    deletePost = () => {
+        const postId = this.props.match.params.postId;
+        const token = isAuthenticated().token;
+        remove(postId, token).then(data => {
+            if (data.error) {
+                console.log(data.error)
+            } else {
+                this.setState({ redirectToHome: true });
+            }
+        });
+    };
+
+    // Prompt user for confirmation
+    deleteConfirmed = () => {
+        let answer = window.confirm("Are you sure you want to delete your account?");
+
+        if (answer) {
+            this.deletePost();
+        }
     };
 
     // renderPost
@@ -43,16 +68,40 @@ class SinglePost extends Component {
                     Posted by <Link to={`${posterId}`}>{posterName} </Link>
                     on {new Date(post.created).toDateString()}
                 </p>
-                {/* Back to Posts Button */}
-                <Link to={`/`} className="btn btn-raised btn-dark btn-sm">
-                    Back to posts
-                </Link>
+
+                {/* Buttons */}
+                <div className="d-inline-block">
+                    {/* Back to Posts Button */}
+                    <Link to={`/`} className="btn btn-raised btn-dark btn-sm mr-5">
+                        Back to posts
+                    </Link>
+
+                    {isAuthenticated().user && isAuthenticated().user._id === post.postedBy._id && (
+                        <>
+                            {/* Update Button */}
+                            <Link to={`/post/edit/${post._id}`} className="btn btn-raised btn-success btn-sm mr-5">
+                                Update Post
+                            </Link>
+
+                            {/* Delete Button */}
+                            <button onClick={this.deleteConfirmed} className="btn btn-raised btn-danger btn-sm mr-5">
+                                Delete Post
+                            </button>
+                        </>
+                    )}
+                </div>
             </div>
         );
     };
 
     render() {
-        const { post } = this.state;
+        const { post, redirectToHome } = this.state;
+
+        // Redirect if post has been deleted
+        if (redirectToHome) {
+            return <Redirect to={'/'} />
+        }
+
         return (
             <div className="container">
                 {/* Title */}

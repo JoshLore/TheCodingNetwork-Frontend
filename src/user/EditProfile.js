@@ -211,7 +211,9 @@ class EditProfile extends Component {
             return <Redirect to={`/user/${id}`} />;
         }
 
-        const photoUrl = id ?
+        const photoLink = `${process.env.REACT_APP_API_URL}/user/photo/${id}` === undefined;
+
+        const photoUrl = (id && !photoLink.error) ?
             `${process.env.REACT_APP_API_URL}/user/photo/${id}?${new Date().getTime()}`
             : DefaultProfile;
 
