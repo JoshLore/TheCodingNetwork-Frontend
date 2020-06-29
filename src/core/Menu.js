@@ -25,6 +25,17 @@ const Menu = ({ history }) => (
             <Link className="nav-link" to="/users" style={isActive(history, "/users")}>Users</Link>
         </li>
 
+        {/* Find People to Follow */}
+        <li className="nav-item">
+            <Link
+                className="nav-link"
+                style={isActive(history, `/post/create`)}
+                to={`/post/create`}
+            >
+                Create Post
+                    </Link>
+        </li>
+
         {/* If user logged in, HIDE these links */}
         {!isAuthenticated() && (
             <>
@@ -53,17 +64,6 @@ const Menu = ({ history }) => (
                         to={`/findpeople`}
                     >
                         Find People
-                    </Link>
-                </li>
-
-                {/* Find People to Follow */}
-                <li className="nav-item">
-                    <Link
-                        className="nav-link"
-                        style={isActive(history, `/post/create`)}
-                        to={`/post/create`}
-                    >
-                        Create Post
                     </Link>
                 </li>
 
