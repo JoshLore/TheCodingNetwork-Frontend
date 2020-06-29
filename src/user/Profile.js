@@ -3,8 +3,9 @@ import { isAuthenticated } from '../auth/auth';
 import { Redirect, Link } from 'react-router-dom';
 import { read } from './apiUser';
 import DefaultProfile from "../images/userDefault.png";
-import DeleteUser from './DeleteUser';
-import Users from './Users';
+import DeleteUser from './DeleteUser'
+import FollowProfileButton from './FollowProfileButton';
+import ProfileTabs from './ProfileTabs';
 
 // I couldn't get a functional component 
 // with useEffect to stop infinitely looping, so
@@ -23,6 +24,20 @@ class Profile extends Component {
         };
     }
 
+    // Checks whether logged in user follows this profile
+    checkFollow = user => {
+        const jwt = isAuthenticated();
+
+        // Iterate through all followers this profile has
+        const match = user.followers.find(follower => {
+            // Checks to see if logged in user is following
+            return follower._id === jwt.user._id;
+        });
+
+        // Returns true if following, false if not
+        return match;
+    }
+
     // This is where useEffect kept infinitely looping,
     // but componentDidMount() doesn't, for some reason.
 
@@ -39,6 +54,24 @@ class Profile extends Component {
         this.init(userId);
     }
 
+    // Calls API for follow and unfollow
+    clickFollowButton = callApi => {
+        const userId = isAuthenticated().user._id;
+        const token = isAuthenticated().token;
+
+        // Call API
+        callApi(userId, token, this.state.user._id).then(data => {
+
+            // Handling errors
+            if (data.error) {
+                this.setState({ error: data.error });
+
+            } else {
+                // New Follow
+                this.setState({ user: data, following: !this.state.following });
+            }
+        });
+    };
 
     // Initialize user from API
     init = userId => {
@@ -50,8 +83,11 @@ class Profile extends Component {
                 // If user isn't logged in, redirect
                 this.setState({ redirectToSignin: true });
             } else {
-                // Set User State to user's data
-                this.setState({ user: data });
+
+                // Check if logged in user is following this profile
+                let following = this.checkFollow(data);
+                // Set User State to user's data and if logged in user is following
+                this.setState({ user: data, following });
             }
         });
     };
@@ -86,28 +122,42 @@ class Profile extends Component {
                     {/* Display profile's name and email */}
                     <div className="col-md-6">
                         <div className="lead mt-2">
-                            <p>Hello, {user.name}!</p>
+                            <p>Hello, I'm {user.name}!</p>
                             <p>Email: {user.email}</p>
                             <p>{`Joined: ${new Date(user.created).toDateString()}`}</p>
                         </div>
 
-                        {/* Buttons for editing and deleting, only visible in user's own profile */}
+                        {/* Check whether user is in his own profile or another's */}
                         {isAuthenticated().user &&
-                            isAuthenticated().user._id === user._id && (
+                            isAuthenticated().user._id === user._id ?
+                            (
+
+                                // Show edit and delete buttons in OWN user's profile
                                 <div className="d-inline-block">
                                     <Link className="btn btn-raised btn-success mr-5" to={`/user/edit/${user._id}`}>
                                         Edit Profile
                                     </Link>
                                     <DeleteUser userId={user._id} />
                                 </div>
-                            )}
+                            ) : (
+
+                                // Show follow and unfollow buttons in OTHER user's profile
+                                <FollowProfileButton
+                                    following={this.state.following}
+                                    onButtonClick={this.clickFollowButton}
+                                />
+                            )
+                        }
+
                     </div>
                 </div>
                 <div className="row">
+                    {/* Display profile's about text area */}
                     <div className="col md-12 mt-5 mb-5">
                         <hr />
                         <p className="lead">{user.about}</p>
                         <hr />
+                        <ProfileTabs followers={user.followers} following={user.following} />
                     </div>
                 </div>
             </div>

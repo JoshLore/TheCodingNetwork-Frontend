@@ -17,7 +17,6 @@ export const read = (userId, token) => {
 
 // PUT User object
 export const update = (userId, token, user) => {
-    console.log("USER DATA UPDATE: ", user);
     return fetch(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
         method: "PUT",
         headers: {
@@ -71,7 +70,7 @@ export const updateUser = (user, next) => {
     }
 };
 
-// PUT User following
+// PUT New follow
 export const follow = (userId, token, followId) => {
     return fetch(`${process.env.REACT_APP_API_URL}/user/follow`, {
         method: "PUT",
@@ -88,8 +87,9 @@ export const follow = (userId, token, followId) => {
         .catch(err => console.log(err));
 };
 
-// PUT User unfollow
+// PUT Unfollow
 export const unfollow = (userId, token, unfollowId) => {
+
     return fetch(`${process.env.REACT_APP_API_URL}/user/unfollow`, {
         method: "PUT",
         headers: {
@@ -105,6 +105,7 @@ export const unfollow = (userId, token, unfollowId) => {
         .catch(err => console.log(err));
 };
 
+// GET People to follow
 export const findPeople = (userId, token) => {
     return fetch(`${process.env.REACT_APP_API_URL}/user/findpeople/${userId}`, {
         method: "GET",

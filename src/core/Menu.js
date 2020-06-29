@@ -44,9 +44,16 @@ const Menu = ({ history }) => (
         {/* Might want to clean up that onClick */}
         {isAuthenticated() && (
             <>
-                {/* Sign out */}
+
+                {/* Find People to Follow */}
                 <li className="nav-item">
-                    <a className="nav-link" href="/" style={{ cursor: "pointer", color: "#fff" }} onClick={() => signout(() => history.push('/'))}>Sign Out</a>
+                    <Link
+                        className="nav-link"
+                        style={isActive(history, `/findpeople`)}
+                        to={`/findpeople`}
+                    >
+                        Find People
+                    </Link>
                 </li>
 
                 {/* User Profile */}
@@ -58,6 +65,11 @@ const Menu = ({ history }) => (
                     >
                         {`${isAuthenticated().user.name}'s Profile`}
                     </Link>
+                </li>
+
+                {/* Sign out */}
+                <li className="nav-item">
+                    <a className="nav-link" href="/" style={{ cursor: "pointer", color: "#fff" }} onClick={() => signout(() => history.push('/'))}>Sign Out</a>
                 </li>
             </>
         )}
