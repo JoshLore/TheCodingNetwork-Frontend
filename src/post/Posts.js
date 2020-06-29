@@ -47,7 +47,6 @@ class Posts extends Component {
             <div className="row">
                 {/* Map through posts */}
                 {posts.map((post, i) => {
-                    console.log(post);
 
                     const posterId = post.postedBy ? `/user/${post.postedBy._id}` : "";
                     const posterName = post.postedBy ? post.postedBy.name : " Unknown";
@@ -99,7 +98,7 @@ class Posts extends Component {
 
                 {page > 1 ? (
                     <button
-                        className="btn btn-raised btn-warning mr-5 mt-5 mb-5"
+                        className="btn btn-raised btn-info mr-5 mt-5 mb-5"
                         onClick={() => this.loadLess(1)}
                     >
                         Previous ({this.state.page - 1})
@@ -110,7 +109,7 @@ class Posts extends Component {
 
                 {posts.length ? (
                     <button
-                        className="btn btn-raised btn-success mt-5 mb-5"
+                        className="btn btn-raised btn-info mt-5 mb-5"
                         onClick={() => this.loadMore(1)}
                     >
                         Next ({page + 1})

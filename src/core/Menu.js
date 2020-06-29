@@ -5,7 +5,7 @@ import { isAuthenticated, signout } from '../auth/auth';
 // Gets the current path and applies style to nav link
 const isActive = (history, path) => {
     if (history.location.pathname === path) {
-        return { color: "#46b2bd", fontWeight: "bold" };
+        return { color: "#9DACFF", fontWeight: "bold" };
     } else {
         return { color: "#ffffff" };
     }
@@ -13,10 +13,10 @@ const isActive = (history, path) => {
 
 // Navbar
 const Menu = ({ history }) => (
-    <ul className="nav nav-tabs bg-dark">
+    <ul className="nav nav-tabs bg-dark sticky-top collapse navbar-collapse">
 
         {/* Home */}
-        <li className="nav-item">
+        <li className="ml-5 nav-item">
             <Link className="nav-link" to="/" style={isActive(history, "/")}>Home</Link>
         </li>
 
