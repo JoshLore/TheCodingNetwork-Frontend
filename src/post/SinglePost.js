@@ -3,6 +3,7 @@ import { singlePost, remove, like, unlike } from "./apiPost";
 import DefaultPost from "../images/mountains.jpg";
 import { Link, Redirect } from "react-router-dom";
 import { isAuthenticated } from '../auth/auth';
+import Comment from './Comment';
 
 class SinglePost extends Component {
     state = {
@@ -11,6 +12,7 @@ class SinglePost extends Component {
         redirectToSignin: false,
         like: false,
         likes: 0,
+        comments: []
     };
 
     // Check if user has already liked post
@@ -30,7 +32,8 @@ class SinglePost extends Component {
                 this.setState({
                     post: data,
                     likes: data.likes.length,
-                    like: this.checkLike(data.likes)
+                    like: this.checkLike(data.likes),
+                    comments: data.comments
                 });
             }
         });
@@ -119,15 +122,15 @@ class SinglePost extends Component {
                     <h3 onClick={this.likeToggle}>
                         <i
                             className="fa fa-thumbs-up text-success bg-dark"
-                            style={{ padding: '8px', borderRadius: '50%' }}
+                            style={{ padding: '10px', borderRadius: '50%' }}
                         />{' '}
                         {likes} Like
                     </h3>
                 ) : (
                         <h3 onClick={this.likeToggle}>
                             <i
-                                className="fa fa-thumbs-down text-warning bg-dark"
-                                style={{ padding: '8px', borderRadius: '50%' }}
+                                className="fa fa-thumbs-up text-light bg-dark"
+                                style={{ padding: '10px', borderRadius: '50%' }}
                             />{' '}
                             {likes} Like
                         </h3>
@@ -168,7 +171,7 @@ class SinglePost extends Component {
     };
 
     render() {
-        const { post, redirectToHome, redirectToSignin } = this.state;
+        const { post, redirectToHome, redirectToSignin, comments } = this.state;
 
         // Redirect if post has been deleted
         if (redirectToHome) {
@@ -190,6 +193,8 @@ class SinglePost extends Component {
                 ) : (
                         this.renderPost(post)
                     )}
+
+                <Comment postId={post._id} comments={comments.reverse()} updateComments={this.updateComments} />
             </div>
         );
     }

@@ -98,7 +98,7 @@ class Posts extends Component {
 
                 {page > 1 ? (
                     <button
-                        className="btn btn-raised btn-info mr-5 mt-5 mb-5"
+                        className="btn btn-raised btn-info mr-5 mt-5 mb-3"
                         onClick={() => this.loadLess(1)}
                     >
                         Previous ({this.state.page - 1})
@@ -109,7 +109,7 @@ class Posts extends Component {
 
                 {posts.length ? (
                     <button
-                        className="btn btn-raised btn-info mt-5 mb-5"
+                        className="btn btn-raised btn-info mt-5 mb-3"
                         onClick={() => this.loadMore(1)}
                     >
                         Next ({page + 1})
