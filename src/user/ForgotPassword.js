@@ -30,10 +30,10 @@ class ForgotPassword extends Component {
                 <h2 className="mt-5 mb-5">Ask for Password Reset</h2>
 
                 {this.state.message && (
-                    <h4 className="bg-success">{this.state.message}</h4>
+                    <h4 className="text-success">{this.state.message}</h4>
                 )}
                 {this.state.error && (
-                    <h4 className="bg-warning">{this.state.error}</h4>
+                    <h4 className="text-warning">{this.state.error}</h4>
                 )}
 
                 <form>
