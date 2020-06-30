@@ -9,7 +9,7 @@ Built with React, bootstrapped with Material Design. Deployed on DigitalOcean.
 ## Links
 
 
-  Visit the working website: [TheCoding.Network](https://thecoding.network/)
+  Visit the working website: [TheCoding.Network](http://thecoding.network/)
 
   Check out the REST API on GitHub: [TheCodingNetwork-API](https://github.com/JoshLore/TheCodingNetwork-API)
 
