@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { signin, authenticate } from '../auth/auth';
+import SocialLogin from './SocialLogin';
 
 // Page for sign up
 const Signin = () => {
@@ -75,6 +76,10 @@ const Signin = () => {
 
             {/* Title */}
             <h2 className="mt-5 mb-5">Sign In</h2>
+
+            <hr />
+            <SocialLogin />
+            <hr />
 
             {/* Displays error if there is an error */}
             <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>

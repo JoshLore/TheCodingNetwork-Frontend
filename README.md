@@ -19,6 +19,8 @@ Built with React, bootstrapped with Material Design. Deployed on DigitalOcean.
 
 ### To run this project in development, do the following:
 
+Change the .env to your preferred host/port, otherwise leave it alone.
+
 ```
 cd thecodingnetwork-api
 npm install
