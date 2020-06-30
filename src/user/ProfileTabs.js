@@ -9,13 +9,13 @@ const ProfileTabs = (props) => {
         <div>
             <div className="row">
                 <div className="col-md-4">
-                    <h3 className="text-primary">{followers.length} Followers</h3>
+                    <h3 className="text-secondary">{followers.length} Followers</h3>
                     <hr />
                     {/* Iterate through follower users */}
                     {followers.map((person, i) => (
                         <div key={i}>
                             <div>
-                                <Link to={`/user/${person._id}`}>
+                                <Link className='text-info' to={`/user/${person._id}`}>
 
                                     {/* User's avatar */}
                                     <img
@@ -42,13 +42,13 @@ const ProfileTabs = (props) => {
                 </div>
 
                 <div className="col-md-4">
-                    <h3 className="text-primary">{following.length} Following</h3>
+                    <h3 className="text-secondary">{following.length} Following</h3>
                     <hr />
                     {/* Iterate through following users */}
                     {following.map((person, i) => (
                         <div key={i}>
                             <div>
-                                <Link to={`/user/${person._id}`}>
+                                <Link className='text-info' to={`/user/${person._id}`}>
 
                                     {/* User's avatar */}
                                     <img
@@ -75,12 +75,12 @@ const ProfileTabs = (props) => {
 
                 {/* Display posts */}
                 <div className="col-md-4">
-                    <h3 className="text-primary">{posts.length} Posts</h3>
+                    <h3 className="text-secondary">{posts.length} Posts</h3>
                     <hr />
                     {posts.map((post, i) => (
                         <div key={i}>
                             <div>
-                                <Link to={`/post/${post._id}`}>
+                                <Link className='text-info' to={`/post/${post._id}`}>
                                     <div>
                                         <p className="lead">{post.title}</p>
                                     </div>

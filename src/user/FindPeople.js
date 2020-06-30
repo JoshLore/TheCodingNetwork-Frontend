@@ -81,7 +81,7 @@ class FindPeople extends Component {
                             className="btn btn-raised btn-dark btn-sm">View Profile
                         </Link>
 
-                        <button onClick={() => this.clickFollow(user, i)} className="btn btn-raised btn-success btn-sm float-right">Follow</button>
+                        <button onClick={() => this.clickFollow(user, i)} className="btn btn-raised text-white btn-sm float-right" style={{ backgroundColor: '#3c9dde' }}>Follow</button>
                     </div>
                 </div>
             ))}

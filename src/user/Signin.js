@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { signin, authenticate } from '../auth/auth';
 
 // Page for sign up
@@ -87,6 +87,13 @@ const Signin = () => {
 
             {/* Sign In Form */}
             {signinForm()}
+
+            <p>
+                <Link to="/forgot-password" className="text-danger">
+                    {" "}
+                    Forgot Password
+                </Link>
+            </p>
         </div>
     );
 };

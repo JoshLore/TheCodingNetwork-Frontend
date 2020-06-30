@@ -53,6 +53,51 @@ export const signout = (next) => {
     }).catch(err => console.log(err));
 };
 
+// Sends API call send a reset link
+export const forgotPassword = email => {
+
+    // Get email
+    console.log("email: ", email);
+
+    // API Call
+    return fetch(`${process.env.REACT_APP_API_URL}/forgot-password/`, {
+        method: "PUT",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email })
+    })
+        // Get message
+        .then(response => {
+            console.log("forgot password response: ", response);
+            return response.json();
+        })
+        // Handle errors
+        .catch(err => console.log(err));
+};
+
+// Sends API Call to reset User's password
+export const resetPassword = resetInfo => {
+
+    // Send to API
+    return fetch(`${process.env.REACT_APP_API_URL}/reset-password/`, {
+        method: "PUT",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(resetInfo)
+    })
+        // Get message
+        .then(response => {
+            console.log("forgot password response: ", response);
+            return response.json();
+        })
+        // Handle errors
+        .catch(err => console.log(err));
+};
+
 
 // AUTHENTICATING FUNCTIONS //
 

@@ -119,20 +119,20 @@ class SinglePost extends Component {
 
                 {/* Displays like icon based on if user has liked post or not */}
                 {like ? (
-                    <h3 onClick={this.likeToggle}>
+                    <h3 onClick={this.likeToggle} style={{ cursor: 'pointer', color: '#3c9dde' }}>
                         <i
-                            className="fa fa-thumbs-up text-success bg-dark"
-                            style={{ padding: '10px', borderRadius: '50%' }}
+                            className="fa fa-thumbs-up"
+                            style={{ color: '#3c9dde' }}
                         />{' '}
-                        {likes} Like
+                        {likes}
                     </h3>
                 ) : (
-                        <h3 onClick={this.likeToggle}>
+                        <h3 onClick={this.likeToggle} style={{ cursor: 'pointer' }} className='text-secondary'>
                             <i
-                                className="fa fa-thumbs-up text-light bg-dark"
-                                style={{ padding: '10px', borderRadius: '50%' }}
+                                className="fa fa-thumbs-up"
+
                             />{' '}
-                            {likes} Like
+                            {likes}
                         </h3>
                     )}
 
@@ -141,7 +141,7 @@ class SinglePost extends Component {
                 <br />
                 {/* Author and Date */}
                 <p className="font-italic">
-                    Posted by <Link to={`${posterId}`}>{posterName} </Link>
+                    Posted by <Link className='text-info' to={`${posterId}`}>{posterName}</Link>{' '}
                     on {new Date(post.created).toDateString()}
                 </p>
 

@@ -108,7 +108,7 @@ class Comment extends Component {
                 </div>
 
                 <div className="col-md-12">
-                    <h3 className="text-primary">{comments.length} Comments</h3>
+                    <h3 className="text-secondary">{comments.length} Comments</h3>
                     {comments.map((comment, i) => (
                         <div key={i}>
                             <hr />
@@ -135,7 +135,7 @@ class Comment extends Component {
                                     <p className="lead">{comment.text}</p>
                                     <p className="font-italic">
                                         Posted by{" "}
-                                        <Link to={`/user/${comment.postedBy._id}`} >{comment.postedBy.name}{" "}</Link>
+                                        <Link className='text-info' to={`/user/${comment.postedBy._id}`}>{comment.postedBy.name}</Link>{" "}
                                         on{" "}
                                         {new Date(comment.created).toDateString()}
                                         <span>
@@ -144,7 +144,7 @@ class Comment extends Component {
                                                     <>
                                                         <span
                                                             onClick={() => this.deleteConfirmed(comment)}
-                                                            className="text-light bg-danger float-right mr-1"
+                                                            className="text-danger float-right mr-1"
                                                             style={{ padding: '5px', cursor: 'pointer' }}>Remove</span>
                                                     </>
                                                 )}

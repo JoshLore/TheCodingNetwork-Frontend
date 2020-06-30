@@ -43,6 +43,12 @@ class NewPost extends Component {
         if (title.length === 0 || body.length === 0) {
             this.setState({ error: "All fields are required", loading: false });
             return false;
+        } else if (title.length > 75) {
+            this.setState({ error: "Title should be less than 75 characters", loading: false });
+            return false;
+        } else if (body.length > 3000) {
+            this.setState({ error: "Body should be less than 3000 characters", loading: false });
+            return false;
         }
 
         return true;

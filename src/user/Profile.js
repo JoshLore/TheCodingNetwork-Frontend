@@ -129,7 +129,7 @@ class Profile extends Component {
                     {/* Display profile's name and email */}
                     <div className="col-md-8">
                         <div className="lead mt-2">
-                            <p>Hello, I'm {user.name}!</p>
+                            <p>Hello, I'm <span className='font-weight-bold'>{user.name}</span>!</p>
                             <p>Email: {user.email}</p>
                             <p>{`Joined: ${new Date(user.created).toDateString()}`}</p>
                         </div>
@@ -139,7 +139,7 @@ class Profile extends Component {
 
                             // Show edit and delete buttons in OWN user's profile
                             <div className="d-inline-block">
-                                <Link className="btn btn-raised btn-info mr-5" to={`/post/create`}>
+                                <Link className="btn btn-raised mr-5 text-white" to={`/post/create`} style={{ backgroundColor: '#3c9dde' }}>
                                     Create Post
                                     </Link>
                                 <Link className="btn btn-raised btn-success mr-5" to={`/user/edit/${user._id}`}>
@@ -161,7 +161,7 @@ class Profile extends Component {
                 </div>
                 <div className="row">
                     {/* Display profile's about text area */}
-                    <div className="col md-12 mt-5 mb-5">
+                    <div className="col md-12 mt-5 mb-5 ">
                         <hr />
                         <p className="lead">{user.about}</p>
                         <hr />

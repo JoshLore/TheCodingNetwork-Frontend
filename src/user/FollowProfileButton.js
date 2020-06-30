@@ -16,7 +16,7 @@ const FollowProfileButton = (props) => {
             {/* If not, show follow button (default) */}
             {/* If so, show unfollow */}
             {!props.following ? (
-                <button onClick={followClick} className="btn btn-success btn-raised mr-5" >
+                <button onClick={followClick} className="btn btn-raised mr-5 text-light" style={{ backgroundColor: '#3c9dde' }}>
                     Follow
                 </button>
             ) : (

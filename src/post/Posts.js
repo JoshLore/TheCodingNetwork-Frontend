@@ -68,7 +68,7 @@ class Posts extends Component {
                             {/* Display author and date posted */}
                             <br />
                             <p className="font-italic">
-                                Posted by <Link to={posterId}>
+                                Posted by <Link className='text-info' to={posterId}>
                                     {posterName}
                                 </Link> on {new Date(post.created).toDateString()}
                             </p>
