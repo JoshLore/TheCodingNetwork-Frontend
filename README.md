@@ -22,7 +22,7 @@ Built with React, bootstrapped with Material Design. Deployed on DigitalOcean.
 Change the .env to your preferred host/port and Google Client Id for social login, otherwise leave it alone.
 
 ```
-cd thecodingnetwork-api
+cd thecodingnetwork-frontend
 npm install
 npm start
 ```
