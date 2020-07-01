@@ -54,6 +54,19 @@ const Menu = ({ history }) => (
             )
         }
 
+        {/* Admin Link */}
+        {isAuthenticated() && isAuthenticated().user.role === "admin" && (
+            <li className="nav-item">
+                <Link
+                    to={`/admin`}
+                    style={isActive(history, `/admin`)}
+                    className="nav-link"
+                >
+                    Admin
+                </Link>
+            </li>
+        )}
+
         {/* If user logged in, SHOW these links */}
         {/* Might want to clean up that onClick */}
         {
