@@ -49,7 +49,7 @@ const Footer = () => {
                     <h5>Contact</h5>
                     <ul className="list-unstyled text-small">
                         <li className="mb-2">
-                            <a className="text-muted mb-5" target="_blank" rel="noopener noreferrer" href="https://loredevelops.com"><i className="fas fa-user-circle"></i> Portfolio</a>
+                            <a className="text-muted mb-5" target="_blank" rel="noopener noreferrer" href="http://loredevelops.com"><i className="fas fa-user-circle"></i> Portfolio</a>
                         </li>
                         <li className="mb-2">
                             <a className="text-muted" target="_blank" rel="noopener noreferrer" href="https://github.com/JoshLore"><i className="fab fa-github"></i> Github</a>
